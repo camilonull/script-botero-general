@@ -13,7 +13,7 @@ CREATE TABLE Person (
 
 CREATE TABLE PersonType (
     id_person_type INT AUTO_INCREMENT PRIMARY KEY,
-    type_name ENUM('Artist', 'User', 'Restorer') NOT NULL
+    type_name ENUM('Artist', 'User', 'Restorer', 'Student', 'Teacher') NOT NULL
 );
 
 CREATE TABLE Person_PersonType (
@@ -34,13 +34,15 @@ REFERENCES Person (id_person)
 
 -- User Table --
 CREATE TABLE User (
-id_user INT AUTO_INCREMENT PRIMARY KEY,
-id_person INT NOT NULL,
-username VARCHAR(45) NOT NULL,
-user_password VARCHAR(15) NOT NULL,
-CONSTRAINT foreign_key_user FOREIGN KEY (id_person)
-REFERENCES Person (id_person)
+    id_user INT AUTO_INCREMENT PRIMARY KEY,
+    id_person INT NOT NULL,
+    username VARCHAR(45) NOT NULL,
+    user_password VARCHAR(15) NOT NULL,
+    status ENUM('verified', 'blocked', 'reported', 'active') NOT NULL DEFAULT 'active',
+    CONSTRAINT foreign_key_user FOREIGN KEY (id_person)
+    REFERENCES Person (id_person)
 );
+
 
 -- Restorer Table --
 CREATE TABLE Restorer (
